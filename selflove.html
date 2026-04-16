@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self Love Journey</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Poppins',sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+/* NAV */
+nav{
+    position:fixed;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding:20px 50px;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(10px);
+}
+
+nav h2{
+    background:linear-gradient(90deg,#ff7eb3,#ff758c);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* PAGES */
+.page{
+    display:none;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px;
+}
+
+.active{
+    display:flex;
+}
+
+/* HERO */
+.hero h1{
+    font-size:5rem;
+    background:linear-gradient(90deg,#ff7eb3,#ff758c,#ffb199);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    margin:20px 0;
+    font-size:1.4rem;
+    opacity:0.85;
+    max-width:700px;
+}
+
+.btn{
+    padding:14px 35px;
+    border-radius:30px;
+    background:linear-gradient(90deg,#ff7eb3,#ff758c);
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+}
+.btn:hover{transform:scale(1.1)}
+
+/* CONTENT */
+.container{
+    max-width:900px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+.card{
+    padding:25px;
+    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+    transition:0.3s;
+}
+.card:hover{
+    transform:translateY(-8px);
+}
+
+/* INPUT */
+input{
+    padding:15px;
+    width:300px;
+    border-radius:10px;
+    border:none;
+    margin-top:20px;
+}
+.output{
+    margin-top:20px;
+    color:#ff7eb3;
+    font-size:1.3rem;
+}
+
+/* QUOTE */
+.quote{
+    font-size:1.5rem;
+    margin:20px 0;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h2>SelfLove</h2>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="page active hero">
+    <div>
+        <h1>Become the Person You Admire</h1>
+        <p>
+            Self-love is not just a feeling — it is a daily practice of choosing growth,
+            discipline, and compassion for yourself. Start building a stronger, more confident version of you.
+        </p>
+        <button class="btn" onclick="goTo('mind')">Start Journey</button>
+    </div>
+</section>
+
+<!-- MINDSET -->
+<section id="mind" class="page">
+    <div class="container">
+        <h2>Build a Strong Mindset</h2>
+        <div class="grid">
+            <div class="card">Replace negative thoughts with constructive ones.</div>
+            <div class="card">Accept your past and focus on progress.</div>
+            <div class="card">Stop comparing yourself to others.</div>
+            <div class="card">Train your mind to see opportunities.</div>
+            <div class="card">Practice discipline even when you lack motivation.</div>
+            <div class="card">Develop confidence through action.</div>
+        </div>
+        <br>
+        <button class="btn" onclick="goTo('growth')">Next</button>
+    </div>
+</section>
+
+<!-- GROWTH -->
+<section id="growth" class="page">
+    <div class="container">
+        <h2>Focus on Personal Growth</h2>
+        <div class="grid">
+            <div class="card">Read and learn every day.</div>
+            <div class="card">Take care of your physical health.</div>
+            <div class="card">Wake up early and plan your day.</div>
+            <div class="card">Avoid distractions that waste your time.</div>
+            <div class="card">Surround yourself with growth-minded people.</div>
+            <div class="card">Track your progress weekly.</div>
+        </div>
+        <br>
+        <button class="btn" onclick="goTo('self')">Next</button>
+    </div>
+</section>
+
+<!-- SELF -->
+<section id="self" class="page">
+    <div class="container">
+        <h2>Recognize Your Worth</h2>
+        <p>Write something you appreciate about yourself:</p>
+        <input id="input" placeholder="I value my...">
+        <div class="output" id="output"></div>
+        <br><br>
+        <!-- FIXED -->
+        <button class="btn" onclick="goTo('quotePage')">Next</button>
+    </div>
+</section>
+
+<!-- QUOTE -->
+<section id="quotePage" class="page">
+    <div class="container">
+        <h2>Daily Reflection</h2>
+        <div class="quote" id="quote"></div>
+        <button class="btn" onclick="newQuote()">New Thought</button>
+        <br><br>
+        <button class="btn" onclick="goTo('home')">Restart</button>
+    </div>
+</section>
+
+<script>
+function goTo(id){
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+/* INPUT */
+const input=document.getElementById("input");
+const output=document.getElementById("output");
+
+input.addEventListener("input",()=>{
+    if(input.value){
+        output.textContent="That reflects strength and self-awareness.";
+    } else {
+        output.textContent="";
+    }
+});
+
+/* QUOTES */
+const quotes=[
+"Discipline builds confidence.",
+"You are responsible for your growth.",
+"Small progress daily leads to big results.",
+"Respect yourself enough to improve.",
+"Your future depends on your habits today."
+];
+
+function newQuote(){
+    const q=quotes[Math.floor(Math.random()*quotes.length)];
+    document.getElementById("quote").textContent=q;
+}
+newQuote();
+</script>
+
+</body>
+</html>
